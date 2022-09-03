@@ -1,9 +1,23 @@
 <template>
-  <router-view></router-view>
+  <div>
+    <TheNavbar />
+    <div class="defaul-layout">
+      <router-view />
+    </div>
+    <TheFooter />
+  </div>
 </template>
 
 <script>
-export default {};
+import TheNavbar from "../components/TheNavbar.vue";
+import TheFooter from "../components/TheFooter.vue";
+
+export default {
+  components: {
+    TheNavbar,
+    TheFooter,
+  },
+};
 </script>
 
 <style></style>
