@@ -1,29 +1,38 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+  //Default Layout
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    component: () => import("@/layouts/DefaultLayout.vue"),
+    children: [
+      {
+        path: "/",
+        name: "Home",
+        component: () => import("@/views/HomePage.vue"),
+      },
+      {
+        path: "/details/:id",
+        name: "Detail",
+        component: () => import("@/views/HeroDetailPage.vue"),
+      },
+    ],
   },
+
+  // Redirect to 404 page, if no match found
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "*",
+    name: "404",
+    component: () => import("@/views/NotFoundPage.vue"),
   },
 ];
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
+  base: process.env.API_BASE_URL,
   routes,
 });
 
