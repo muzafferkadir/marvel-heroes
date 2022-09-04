@@ -94,10 +94,7 @@ export default {
   props: {
     thumbnail: Object,
     name: String,
-    description: {
-      type: String,
-      default: "No available description",
-    },
+    description: String,
     availableSeries: Number,
     returnedSeries: Number,
     availableStories: Number,
