@@ -1,82 +1,82 @@
 <template>
-  <div
-    v-if="isLoading"
-    class="loading-background position-fixed start-0 top-0 w-100 h-100"
-  >
-    <div class="position-relative w-100 h-100">
-      <div
-        class="loading-ring position-absolute start-0 top-0 w-100 h-100 d-flex justify-content-center align-items-center"
-      >
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <div class="container">
+      <router-link to="/" class="navbar-brand">
+        <img src="../assets/marvel.png" alt="" height="60px" loading="lazy"
+      /></router-link>
+      <div class="d-flex">
+        <vs-input
+          v-model="searchInput"
+          v-on:keyup.enter="search()"
+          placeholder="Enter a character name"
+        />
+        <vs-button @click="search()" icon :color="$defaultColor">
+          <ph-magnifying-glass :size="30" />
+        </vs-button>
       </div>
-      <div
-        class="loading-ring position-absolute start-0 top-0 w-100 h-100 d-flex justify-content-center align-items-center"
-      ></div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script>
+import { PhMagnifyingGlass } from "phosphor-vue";
 export default {
-  data() {
-    return { isLoading: true };
+  components: {
+    PhMagnifyingGlass,
   },
 
-  watch: {
-    "$store.state.loading": function (loading) {
-      if (!loading) {
-        this.isLoading = false;
-      } else {
-        this.isLoading = true;
-      }
+  data() {
+    return {
+      searchInput: "",
+    };
+  },
+  methods: {
+    search() {
+      this.$store.dispatch("searchCharacter", { name: this.searchInput });
     },
   },
 };
 </script>
 
 <style lang="scss">
-.loading-background {
-  z-index: 10;
-  backdrop-filter: blur(2px);
-  background: rgba(255, 255, 255, 0.2);
+.navbar.bg-light {
+  background: #e62429 !important;
 }
 
-.loading-ring {
-  & div {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border: 5px solid #e62429;
-    border-radius: 50%;
-    animation: loading-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #e62429 transparent transparent transparent;
-  }
-  & div:nth-child(1) {
-    animation-delay: -0.45s;
-  }
-  & div:nth-child(2) {
-    animation-delay: -0.3s;
-  }
-  & div:nth-child(2) {
-    animation-delay: -0.3s;
-  }
-  & div:nth-child(3) {
-    animation-delay: -0.15s;
+.vs-input {
+  background-color: white !important;
+  color: black !important;
+}
+
+@media screen and (max-width: 900px) {
+  .navbar {
+    padding-bottom: 16px;
   }
 
-  @keyframes loading-ring {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+  .navbar .container > * {
+    display: block;
+    width: 100%;
+  }
+
+  .navbar-brand {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .navbar .vs-input {
+    width: 100%;
+  }
+
+  .vs-tooltip-content .vs-button__content {
+    padding: 4px 6px;
+  }
+
+  .vs-tooltip-content .vs-button__content span {
+    font-size: 12px;
+  }
+
+  .vs-input-parent {
+    width: 100%;
   }
 }
 </style>
