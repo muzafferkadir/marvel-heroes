@@ -49,11 +49,13 @@ export default {
           document.body.scrollTop
         );
 
-        const bottomOfWindow =
-          scrollOffset + window.innerHeight >=
-          document.documentElement.offsetHeight;
+        const lastPointOfScreen = scrollOffset + window.innerHeight + 50;
 
-        if (bottomOfWindow && this.$route.name === "Home") {
+        if (
+          lastPointOfScreen >= document.documentElement.offsetHeight &&
+          this.$route.name === "Home" &&
+          !this.$store.state.loading
+        ) {
           this.$store.dispatch("fetchCharactersList", {
             limit: this.pageLimitSize,
             offset: this.characters?.length || 0,
