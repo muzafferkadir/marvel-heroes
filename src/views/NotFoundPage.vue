@@ -1,82 +1,38 @@
 <template>
-  <nav class="navbar navbar-light bg-light justify-content-between">
-    <div class="container">
-      <router-link to="/" class="navbar-brand">
-        <img src="../assets/marvel.png" alt="" height="60px" loading="lazy"
-      /></router-link>
-      <div class="d-flex">
-        <vs-input
-          v-model="searchInput"
-          v-on:keyup.enter="search()"
-          placeholder="Enter a character name"
-        />
-        <vs-button @click="search()" icon :color="$defaultColor">
-          <ph-magnifying-glass :size="30" />
-        </vs-button>
-      </div>
+  <div class="my-auto">
+    <section class="error-container">
+      <span>4</span>
+      <span>0</span>
+      <span>4</span>
+    </section>
+    <div class="link-container">
+      <h3>Content Not Found</h3>
+      <vs-button href="/" icon :color="$defaultColor" class="mx-auto">
+        <ph-house-simple :size="32" />
+        <span>Go to Homepage</span>
+      </vs-button>
     </div>
-  </nav>
+  </div>
 </template>
 
 <script>
-import { PhMagnifyingGlass } from "phosphor-vue";
 export default {
-  components: {
-    PhMagnifyingGlass,
-  },
-
-  data() {
-    return {
-      searchInput: "",
-    };
-  },
-  methods: {
-    search() {
-      this.$store.dispatch("searchCharacter", { name: this.searchInput });
-    },
+  name: "NotFound",
+  created() {
+    this.$store.commit("SET_LOADING", false);
   },
 };
 </script>
 
-<style lang="scss">
-.navbar.bg-light {
-  background: #e62429 !important;
+<style>
+.error-container {
+  text-align: center;
+  font-size: 180px;
+  font-family: "Catamaran", sans-serif;
+  font-weight: 800;
+  margin: 20px 15px;
 }
-
-.vs-input {
-  background-color: white !important;
-  color: black !important;
-}
-
-@media screen and (max-width: 900px) {
-  .navbar {
-    padding-bottom: 16px;
-  }
-
-  .navbar .container > * {
-    display: block;
-    width: 100%;
-  }
-
-  .navbar-brand {
-    text-align: center;
-    margin-bottom: 8px;
-  }
-
-  .navbar .vs-input {
-    width: 100%;
-  }
-
-  .vs-tooltip-content .vs-button__content {
-    padding: 4px 6px;
-  }
-
-  .vs-tooltip-content .vs-button__content span {
-    font-size: 12px;
-  }
-
-  .vs-input-parent {
-    width: 100%;
-  }
+.link-container {
+  text-align: center;
 }
 </style>

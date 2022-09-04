@@ -19,14 +19,14 @@ const routes = [
         name: "Detail",
         component: () => import("@/views/HeroDetailPage.vue"),
       },
-    ],
-  },
 
-  // Redirect to 404 page, if no match found
-  {
-    path: "*",
-    name: "404",
-    component: () => import("@/views/NotFoundPage.vue"),
+      // Redirect to 404 page, if no match found
+      {
+        path: "*",
+        name: "404",
+        component: () => import("@/views/NotFoundPage.vue"),
+      },
+    ],
   },
 ];
 
