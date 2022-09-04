@@ -2,10 +2,6 @@
   <div class="footer-text">Copyright &copy; 2022 - Marvel Heroes</div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style lang="scss">
 .footer-text {
   font-size: 14px;

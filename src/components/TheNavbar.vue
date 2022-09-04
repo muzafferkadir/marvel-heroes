@@ -30,6 +30,7 @@ export default {
       searchInput: "",
     };
   },
+
   methods: {
     search() {
       this.$store.dispatch("searchCharacter", { name: this.searchInput });
