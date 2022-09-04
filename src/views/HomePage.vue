@@ -10,6 +10,7 @@
         :returnedSeries="character.series?.returned || 0"
         :availableStories="character.stories?.available || 0"
         :returnedStories="character.stories?.returned || 0"
+        @click.native="goCharacterDetail(character)"
       />
     </vs-row>
   </div>
@@ -28,16 +29,43 @@ export default {
   },
 
   methods: {
+    goCharacterDetail(character) {
+      const detailURL = `/details/${character.id}`;
+      this.$router.push(detailURL);
+    },
+
     getFirstList() {
       if (!this.characters.length || this.characters.length === 0)
         this.$store.dispatch("fetchCharactersList", {
           limit: this.pageLimitSize,
         });
     },
+
+    infiniteScrollHandler() {
+      window.onscroll = () => {
+        const scrollOffset = Math.max(
+          window.pageYOffset,
+          document.documentElement.scrollTop,
+          document.body.scrollTop
+        );
+
+        const bottomOfWindow =
+          scrollOffset + window.innerHeight >=
+          document.documentElement.offsetHeight;
+
+        if (bottomOfWindow && this.$route.name === "Home") {
+          this.$store.dispatch("fetchCharactersList", {
+            limit: this.pageLimitSize,
+            offset: this.characters?.length || 0,
+          });
+        }
+      };
+    },
   },
 
   mounted() {
     this.getFirstList();
+    this.infiniteScrollHandler();
   },
 
   computed: {
