@@ -24,6 +24,22 @@
           <vs-table>
             <template #thead>
               <vs-tr>
+                <vs-th> Comics (last 10) </vs-th>
+              </vs-tr>
+            </template>
+            <template #tbody>
+              <vs-tr :key="comic.title" v-for="comic in comics" :data="comics">
+                <vs-td>
+                  <span>{{ comic.title }}</span>
+                </vs-td>
+              </vs-tr>
+            </template>
+          </vs-table>
+        </div>
+        <div class="detail-table">
+          <vs-table>
+            <template #thead>
+              <vs-tr>
                 <vs-th> Series </vs-th>
               </vs-tr>
             </template>
@@ -78,6 +94,7 @@ export default {
 
   mounted() {
     this.$store.dispatch("fetchCharacter", { charID: this.charID });
+    this.$store.dispatch("fetchCharactersComics", { charID: this.charID });
   },
 
   computed: {
@@ -87,6 +104,10 @@ export default {
 
     character() {
       return this.$store.state.characterData || null;
+    },
+
+    comics() {
+      return this.$store.state.charactersComicData || null;
     },
   },
 };
