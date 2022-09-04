@@ -25,6 +25,10 @@ export default new Vuex.Store({
     SET_CHARACTER_DATA(state, character) {
       state.characterData = character;
     },
+
+    SET_LOADING(state, loading) {
+      state.loading = loading;
+    },
   },
 
   actions: {
